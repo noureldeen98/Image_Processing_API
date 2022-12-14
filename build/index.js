@@ -25,13 +25,13 @@ exports.mainAppImageProcessing.get('/api/imagesResizing', function (request, res
     else {
         (0, sharp_1.default)(theImageLocation)
             .resize(parseInt(imageWidth), parseInt(imageHeight))
-            .toFile('../assets/new_' + `${imageName}_${imageWidth}_${imageHeight}.png`, (err, info) => {
+            .toFile('../thumbNails/new_' + `${imageName}_${imageWidth}_${imageHeight}.png`, (err, info) => {
             console.log(info.size);
         });
     }
     // response.send(`new_${imageName}_${imageWidth}_${imageHeight}.png`)
     //   The new edited image
-    const newEditedImage = path_1.default.resolve('../assets') +
+    const newEditedImage = path_1.default.resolve('../thumbNails') +
         `/new_${imageName}_${imageWidth}_${imageHeight}.png`;
     // Rendering the new edited image in the html
     response.sendFile(newEditedImage);
