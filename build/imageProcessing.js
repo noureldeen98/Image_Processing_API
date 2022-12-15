@@ -10,12 +10,9 @@ const path_1 = __importDefault(require("path"));
 function imageResizingMethod(theImageLocation, imageName, imageWidth, imageHeight) {
     (0, sharp_1.default)(theImageLocation)
         .resize(parseInt(imageWidth), parseInt(imageHeight))
-        .toFile('../thumbNails/new_' + `${imageName}_${imageWidth}_${imageHeight}.png`, (err, info) => {
-        // console.log(info.size)
-    });
+        .toFile('./thumbNails' + `/new_${imageName}_${imageWidth}_${imageHeight}.png`);
     //   The new edited image
-    const newEditedImage = path_1.default.resolve('../thumbNails') +
-        `/new_${imageName}_${imageWidth}_${imageHeight}.png`;
+    const newEditedImage = path_1.default.resolve('./thumbNails') + `/new_${imageName}_${imageWidth}_${imageHeight}.png`;
     return newEditedImage;
 }
 exports.imageResizingMethod = imageResizingMethod;

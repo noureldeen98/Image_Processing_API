@@ -1,26 +1,22 @@
 import sharp from 'sharp'
 import path from 'path'
+import { response } from 'express'
 
 //  This function for resizing the images and will invoking in the main file 
-export function imageResizingMethod(
+export  function imageResizingMethod(
   theImageLocation: string,
   imageName: string,
   imageWidth: string,
   imageHeight: string
   
-): string {
-  sharp(theImageLocation)
+): string{
+   sharp(theImageLocation)
     .resize(parseInt(imageWidth), parseInt(imageHeight))
     .toFile(
-      '../thumbNails/new_' + `${imageName}_${imageWidth}_${imageHeight}.png`,
-      (err, info) => {
-        // console.log(info.size)
-      }
-    )
+      './thumbNails'+`/new_${imageName}_${imageWidth}_${imageHeight}.png`)
   //   The new edited image
-  const newEditedImage: string =
-    path.resolve('../thumbNails') +
-    `/new_${imageName}_${imageWidth}_${imageHeight}.png`
+  const newEditedImage =
+    path.resolve('./thumbNails')+`/new_${imageName}_${imageWidth}_${imageHeight}.png`
 
-  return newEditedImage
+return newEditedImage
 }

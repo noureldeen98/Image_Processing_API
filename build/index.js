@@ -14,8 +14,7 @@ exports.mainAppImageProcessing.get('/api/imagesResizing', function (request, res
     const imageName = request.query.imageName;
     const imageWidth = request.query.width;
     const imageHeight = request.query.height;
-    const theImageLocation = path_1.default.resolve('../assets') + `/${imageName}.png`;
-    console.log(theImageLocation);
+    const theImageLocation = path_1.default.resolve('./assets') + `/${imageName}.png`;
     //  This condition to check if there is no image name sent in the URL as a query string
     if (!imageName) {
         response.send('Sorry this image is not found');
@@ -30,7 +29,7 @@ exports.mainAppImageProcessing.get('/api/imagesResizing', function (request, res
         // Rendering the new edited image in the html
         response.sendFile(newEditedImage);
     }
-    // response.send(`new_${imageName}_${imageWidth}_${imageHeight}.png`)
+    //  response.sendFile(path.resolve('../assets')+`/new_${imageName}_${imageWidth}_${imageHeight}.png`)
 });
 exports.mainAppImageProcessing.listen(theMainPort, () => {
     console.log(`This project is working on potrt which is: ${theMainPort}`);
