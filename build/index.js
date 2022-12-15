@@ -6,40 +6,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.myTestFun = exports.mainAppImageProcessing = void 0;
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
-const sharp_1 = __importDefault(require("sharp"));
+const imageProcessing_1 = require("./imageProcessing");
 exports.mainAppImageProcessing = (0, express_1.default)();
 const theMainPort = 8000;
 exports.mainAppImageProcessing.get('/api/imagesResizing', function (request, response) {
+    // Declaring Variables which will get their values from the HTTP request
     const imageName = request.query.imageName;
     const imageWidth = request.query.width;
     const imageHeight = request.query.height;
     const theImageLocation = path_1.default.resolve('../assets') + `/${imageName}.png`;
-    //  This condition to check if there is no image name sent in the URL as a query string 
+    console.log(theImageLocation);
+    //  This condition to check if there is no image name sent in the URL as a query string
     if (!imageName) {
         response.send('Sorry this image is not found');
     }
-    //  This condition to check if there is no image name sent in the URL as a query string 
+    //  This condition to check if there is no image name sent in the URL as a query string
     else if (!parseInt(imageHeight) || !parseInt(imageWidth)) {
         response.send('Something wring! You should enter the height of image eg: imageName=...&height=200&width=100');
-    } //Otherwise resize the image according to the width and height which sent 
+    } //Otherwise resize the image according to the width and height which sent
     else {
-        (0, sharp_1.default)(theImageLocation)
-            .resize(parseInt(imageWidth), parseInt(imageHeight))
-            .toFile('../thumbNails/new_' + `${imageName}_${imageWidth}_${imageHeight}.png`, (err, info) => {
-            console.log(info.size);
-        });
+        //  invoking the function which reponsible for image resizing
+        const newEditedImage = (0, imageProcessing_1.imageResizingMethod)(theImageLocation, imageName, imageWidth, imageHeight);
+        // Rendering the new edited image in the html
+        response.sendFile(newEditedImage);
     }
     // response.send(`new_${imageName}_${imageWidth}_${imageHeight}.png`)
-    //   The new edited image
-    const newEditedImage = path_1.default.resolve('../thumbNails') +
-        `/new_${imageName}_${imageWidth}_${imageHeight}.png`;
-    // Rendering the new edited image in the html
-    response.sendFile(newEditedImage);
-    // response.sendFile(theImageLocation)
 });
 exports.mainAppImageProcessing.listen(theMainPort, () => {
     console.log(`This project is working on potrt which is: ${theMainPort}`);
 });
+//Just for testing
 const myTestFun = (num) => {
     return num * num;
 };
