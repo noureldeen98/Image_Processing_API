@@ -8,7 +8,7 @@ const theMainPort = 8000
 
 mainAppImageProcessing.get(
   '/api/imagesResizing',
- function (request: express.Request, response: express.Response): void {
+ async function (request: express.Request, response: express.Response): Promise<void> {
     // Declaring Variables which will get their values from the HTTP request
     const imageName = request.query.imageName as string
     const imageWidth = request.query.width as string
@@ -30,9 +30,9 @@ mainAppImageProcessing.get(
     } //Otherwise resize the image according to the width and height which sent
     else {
       //  invoking the function which reponsible for image resizing
-     const newEditedImage: string = imageResizingMethod(theImageLocation,imageName,imageWidth,imageHeight)
+     const newEditedImage: Promise<string> = imageResizingMethod(theImageLocation,imageName,imageWidth,imageHeight)
       // Rendering the new edited image in the html
-      response.sendFile(newEditedImage)
+      response.sendFile(await newEditedImage)
  
     }
 
