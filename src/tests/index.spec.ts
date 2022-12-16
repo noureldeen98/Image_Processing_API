@@ -3,8 +3,6 @@ import supertest from 'supertest'
 import { mainAppImageProcessing } from '../index'
 import { imageResizingMethod } from '../imageProcessing'
 
-
-
 // Just for testing jasmine itself
 describe('test if jasmine is working right or not', () => {
   it('test my testing function ', () => {
@@ -36,7 +34,6 @@ describe('Testing the endpoint and its responses', () => {
   })
 })
 
-
 // You must test image processing function in isolation without sending a request to server.
 describe('Testing the image in isolation ', () => {
   it('test resizing function', () => {
@@ -50,7 +47,6 @@ describe('Testing the image in isolation ', () => {
   })
 })
 
-
 describe('Testing the image in isolation ', () => {
   it('test resizing function', () => {
     const theImageLocation = '../../assets/udacityLogo.png'
@@ -58,7 +54,12 @@ describe('Testing the image in isolation ', () => {
     const imageWidth = '200'
     const imageHeight = '100'
     expect(async () => {
-      await imageResizingMethod(theImageLocation, imageName, imageWidth, imageHeight);
-  }).not.toThrow();
+      await imageResizingMethod(
+        theImageLocation,
+        imageName,
+        imageWidth,
+        imageHeight
+      )
+    }).not.toThrow()
   })
 })
