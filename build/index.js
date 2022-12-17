@@ -53,9 +53,9 @@ exports.mainAppImageProcessing.get('/api/imagesResizing', function (request, res
         else {
             //  invoking the function which reponsible for image resizing
             //   checkingTheImagesExistance(theImageLocation,imageName,imageWidth,imageHeight);
-            const newEditedImage = (0, imageProcessing_1.imageResizingMethod)(theImageLocation, imageName, imageWidth, imageHeight);
+            const newEditedImage = yield (0, imageProcessing_1.imageResizingMethod)(theImageLocation, imageName, imageWidth, imageHeight);
             // Rendering the new edited image in the html
-            response.sendFile(yield newEditedImage);
+            response.sendFile(newEditedImage);
         }
         //  response.sendFile(path.resolve('../assets')+`/new_${imageName}_${imageWidth}_${imageHeight}.png`)
     });
