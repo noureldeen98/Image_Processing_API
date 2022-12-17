@@ -54,15 +54,9 @@ function exists(pathFile) {
 //  This function for resizing the images and will invoking in the main file 
 function imageResizingMethod(theImageLocation, imageName, imageWidth, imageHeight) {
     return __awaiter(this, void 0, void 0, function* () {
-        const Path = path_1.default.join("thumbNails", `new_${imageName}_${imageWidth}_${imageHeight}.png`);
-        if ((yield exists(Path)) == false) {
-            yield (0, sharp_1.default)(theImageLocation)
-                .resize(parseInt(imageWidth), parseInt(imageHeight))
-                .toFile('./thumbNails' + `/new_${imageName}_${imageWidth}_${imageHeight}.png`);
-        }
-        else {
-            console.log("exist");
-        }
+        yield (0, sharp_1.default)(theImageLocation)
+            .resize(parseInt(imageWidth), parseInt(imageHeight))
+            .toFile('./thumbNails' + `/new_${imageName}_${imageWidth}_${imageHeight}.png`);
         //   The new edited image
         const newEditedImage = path_1.default.resolve('./thumbNails') + `/new_${imageName}_${imageWidth}_${imageHeight}.png`;
         return newEditedImage;

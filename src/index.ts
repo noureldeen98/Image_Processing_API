@@ -18,21 +18,13 @@ mainAppImageProcessing.get(
     const imageHeight = request.query.height as string
 
     const theImageLocation: string =
-      path.resolve('./assets') + `/${imageName}.png`
+      path.resolve('../assets') + `/${imageName}.png`
 
     //  This condition to check if there is no image name sent in the URL as a query string
     if (!imageName) {
       response.send('Sorry this image is not found')
     }
-            // Check if the width and height is NAN
-            else if (parseInt(imageHeight) || parseInt(imageWidth)) {
-              if(isNaN(parseInt(imageHeight))){
-                response.send('The image height should be a number ')
-              }else if(isNaN(parseInt(imageWidth))){
-                response.send('The image width should be a number ')
-              }
-              
-            }
+
 
     // Check if the width and height more than 0
     else if (parseInt(imageHeight) <= 0 || parseInt(imageWidth) <= 0) {
@@ -54,9 +46,8 @@ mainAppImageProcessing.get(
     else {
       //  invoking the function which reponsible for image resizing
 
-      //   checkingTheImagesExistance(theImageLocation,imageName,imageWidth,imageHeight);
 
-      const newEditedImage = imageResizingMethod(
+      const newEditedImage:Promise<string> = imageResizingMethod(
         theImageLocation,
         imageName,
         imageWidth,
