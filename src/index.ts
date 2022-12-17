@@ -24,16 +24,33 @@ mainAppImageProcessing.get(
     if (!imageName) {
       response.send('Sorry this image is not found')
     }
+            // Check if the width and height is NAN
+            else if (parseInt(imageHeight) || parseInt(imageWidth)) {
+              if(isNaN(parseInt(imageHeight))){
+                response.send('The image height should be a number ')
+              }else if(isNaN(parseInt(imageWidth))){
+                response.send('The image width should be a number ')
+              }
+              
+            }
+
     // Check if the width and height more than 0
     else if (parseInt(imageHeight) <= 0 || parseInt(imageWidth) <= 0) {
       response.send('The width and height must be more than 0 ')
     }
     //  This condition to check if there is no image name sent in the URL as a query string
-    else if (!parseInt(imageHeight) || !parseInt(imageWidth)) {
+    else if (!parseInt(imageHeight)) {
+
       response.send(
-        'Something wrong! You should enter the height of image eg: imageName=...&height=200&width=100 </br> note that: height and width must be a number'
+        'Something wrong! You should enter the height of image as number value eg: imageName=...&height=200'
       )
-    } //Otherwise resize the image according to the width and height which sent
+    } else if(!parseInt(imageWidth)){
+      response.send(
+        'Something wrong! You should enter the width of image as number value eg: imageName=...&width=200'
+      )
+    }
+    
+    //Otherwise resize the image according to the width and height which sent
     else {
       //  invoking the function which reponsible for image resizing
 
