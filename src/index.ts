@@ -12,8 +12,6 @@ mainAppImageProcessing.get(
     request: express.Request,
     response: express.Response
   ): Promise<void> {
-    console.log('enter request')
-
     // Declaring Variables which will get their values from the HTTP request
     const imageName = request.query.imageName as string
     const imageWidth = request.query.width as string
@@ -27,15 +25,9 @@ mainAppImageProcessing.get(
       response.send('Sorry this image is not found')
     }
     // Check if the width and height is NAN
-
     else if (isNaN(parseInt(imageHeight))) {
-      console.log(2);
-      
       response.send('The image height should be a number ')
-    } 
-    else if (isNaN(parseInt(imageWidth))) {
-      console.log(3);
-      
+    } else if (isNaN(parseInt(imageWidth))) {
       response.send('The image width should be a number ')
     }
     // Check if the width and height more than 0
